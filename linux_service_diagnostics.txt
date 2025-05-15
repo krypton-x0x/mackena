@@ -1,0 +1,83 @@
+🔧 Полная диагностика сервиса в Linux
+
+Предположим, ты хочешь проверить, почему не работает сервис example-service.
+
+---
+
+🔍 1. Проверка статуса сервиса
+systemctl status example-service
+
+---
+
+⚠️ 2. Проверка логов
+journalctl -u example-service -xe
+
+Если нет systemd:
+tail -n 50 /var/log/syslog
+tail -n 50 /var/log/messages
+
+---
+
+🔁 3. Попробуй перезапустить
+systemctl restart example-service
+systemctl status example-service
+
+---
+
+📦 4. Проверка, установлен ли сервис
+which example-service
+dpkg -l | grep example-service   # Debian/Ubuntu
+rpm -qa | grep example-service   # CentOS/RHEL
+
+---
+
+🔗 5. Проверка зависимостей и портов
+ss -tuln | grep :PORT
+netstat -tulpen
+
+---
+
+👁️ 6. Проверка процессов
+ps aux | grep example-service
+
+---
+
+🧪 7. Проверка конфигов
+cat /etc/example-service/example.conf
+nano /etc/example-service/example.conf
+ls -l /etc/example-service/
+example-service --check-config   # если поддерживается
+
+---
+
+🔒 8. Проверка SELinux и AppArmor
+getenforce
+sestatus
+aa-status
+
+---
+
+🔥 9. Проверка firewall / iptables
+iptables -L -n -v
+ufw status
+
+---
+
+🧰 10. Диагностика с strace
+strace -f -o debug.txt systemctl start example-service
+cat debug.txt | less
+
+---
+
+🧹 11. Очистка старого мусора
+systemctl daemon-reexec
+systemctl daemon-reload
+
+---
+
+🧨 12. Проверка конфликта портов
+lsof -i :PORT
+
+---
+
+Конец.
