@@ -1,0 +1,13 @@
+# 🐘 PostgreSQL Полная шпаргалка
+
+## 🔧 Установка и запуск (Debian/Ubuntu)
+```bash
+sudo apt update
+sudo apt install postgresql postgresql-contrib -y
+sudo systemctl enable postgresql
+sudo systemctl start postgresql
+```
+
+...
+
+Готово! Это полная боевая шпаргалка для PostgreSQL от DevOps до продакшена.
