@@ -1,0 +1,31 @@
+                                    Команда                                            Описание
+                            tcpdump -i eth0                              Слушать интерфейс eth0
+                             tcpdump -i any                              Слушать все интерфейсы
+                                tcpdump -nn                     Не резолвить IP и порты в имена
+                                 tcpdump -v             Более подробный вывод (можно -vv, -vvv)
+                              tcpdump -c 10                        Захватить 10 пакетов и выйти
+                       tcpdump -w file.pcap                             Сохранить трафик в файл
+                       tcpdump -r file.pcap                                Прочитать файл .pcap
+                   tcpdump host 192.168.1.1                        Фильтр: весь трафик от/до IP
+               tcpdump src host 192.168.1.1                          Фильтр: только источник IP
+               tcpdump dst host 192.168.1.1                        Фильтр: только получатель IP
+                 tcpdump net 192.168.1.0/24                                     Фильтр: подсеть
+                            tcpdump port 80                          Фильтр: трафик по порту 80
+                       tcpdump src port 443                              Фильтр: порт источника
+                        tcpdump dst port 22                             Фильтр: порт назначения
+                                tcpdump tcp                                  Фильтр: только TCP
+                                tcpdump udp                                  Фильтр: только UDP
+                               tcpdump icmp                          Фильтр: только ICMP (ping)
+                                tcpdump arp                                  Фильтр: только ARP
+                          tcpdump less 1500                     Фильтр: пакеты меньше 1500 байт
+                       tcpdump greater 1000                     Фильтр: пакеты больше 1000 байт
+                    tcpdump tcp and port 80                              TCP трафик по 80 порту
+                tcpdump udp and dst port 53                                   UDP трафик на DNS
+tcpdump src net 10.0.0.0/8 and dst port 443                   Из подсети 10.0.0.0/8 на порт 443
+                                 tcpdump -X                      Показать hex+ASCII дамп пакета
+                                 tcpdump -A             Показать только ASCII (удобно для HTTP)
+                                 tcpdump -e                    Показать MAC-адреса (link-level)
+                              tcpdump -tttt                  Показать timestamp в читаемом виде
+                 tcpdump -n -i eth0 -s 0 -v Максимальная длина пакета, без DNS, подробный вывод
+     tcpdump 'tcp[tcpflags] & tcp-syn != 0'              Фильтр TCP SYN пакетов (начало сессий)
+ tcpdump 'tcp[tcpflags] == tcp-syn|tcp-ack'                              Фильтр SYN+ACK пакетов
