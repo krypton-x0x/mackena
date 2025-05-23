@@ -1,0 +1,51 @@
+Команда,Описание
+mysql -u root -p,Подключение к серверу MySQL/MariaDB
+SHOW DATABASES;,Показать все базы данных
+USE dbname;,Выбрать базу данных
+SHOW TABLES;,Показать таблицы в базе
+DESCRIBE tablename;,Структура таблицы
+SELECT * FROM tablename;,Вывод всех строк таблицы
+CREATE USER 'user'@'localhost' IDENTIFIED BY 'pass';,Создать пользователя
+GRANT ALL PRIVILEGES ON dbname.* TO 'user'@'localhost';,Выдать все права на БД
+REVOKE ALL PRIVILEGES ON dbname.* FROM 'user'@'localhost';,Забрать все права
+DROP USER 'user'@'localhost';,Удалить пользователя
+FLUSH PRIVILEGES;,Применить изменения прав доступа
+"SELECT User, Host FROM mysql.user;",Просмотр всех пользователей и их хостов
+bind-address = 0.0.0.0,Настройка my.cnf для сетевого подключения
+ufw allow 3306/tcp,Открыть порт для подключения к MySQL/MariaDB
+GRANT ALL ON *.* TO 'user'@'%' IDENTIFIED BY 'password';,Доступ пользователю с любого IP
+CREATE DATABASE dbname;,Создать базу данных
+DROP DATABASE dbname;,Удалить базу данных
+CREATE TABLE tablename (...);,Создать таблицу
+DROP TABLE tablename;,Удалить таблицу
+ALTER TABLE tablename ADD column INT;,Добавить колонку в таблицу
+mysqldump -u user -p dbname > backup.sql,Создание дампа базы данных
+mysqldump -u user -p --all-databases > all.sql,Дамп всех баз
+mysql -u user -p dbname < backup.sql,Восстановление из дампа
+gzip backup.sql,Сжатие дампа
+gunzip backup.sql.gz,Распаковка дампа
+"CHANGE MASTER TO MASTER_HOST='host', MASTER_USER='replica', MASTER_PASSWORD='pass';",Настройка реплики
+START SLAVE;,Запуск репликации
+STOP SLAVE;,Остановка репликации
+SHOW SLAVE STATUS\G,Статус репликации
+SHOW PROCESSLIST;,Просмотр активных запросов
+SHOW VARIABLES;,Системные переменные
+SHOW STATUS;,Статус сервера
+CHECK TABLE tablename;,Проверка таблицы
+ANALYZE TABLE tablename;,Анализ таблицы
+OPTIMIZE TABLE tablename;,Оптимизация таблицы
+mysqladmin -u root -p status,Общая информация о сервере
+GRANT ALL PRIVILEGES ON *.* TO 'user'@'192.168.1.100' IDENTIFIED BY 'password';,Разрешить доступ пользователю с IP 192.168.1.100
+"GRANT SELECT,INSERT ON db.* TO 'user'@'10.0.0.%' IDENTIFIED BY 'password';",Разрешить доступ с подсети 10.0.0.0/24 только для чтения/записи
+GRANT USAGE ON *.* TO 'user'@'%' IDENTIFIED BY 'password';,Создание пользователя с доступом отовсюду без прав
+"REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'user'@'%' ;",Полное удаление прав пользователя по IP
+SHOW GRANTS FOR 'user'@'192.168.1.100';,Показать все права пользователя на этом IP
+UPDATE mysql.user SET host='%' WHERE user='user' AND host='localhost';,Изменить localhost-доступ пользователя на любой IP
+FLUSH PRIVILEGES;,Применение изменений в правах доступа (обязательно после прямого UPDATE)
+SHOW VARIABLES LIKE 'bind_address';,Проверка текущего IP-привязки сервера
+SHOW VARIABLES LIKE 'skip_networking';,Проверка включённости сетевого взаимодействия
+SHOW VARIABLES LIKE 'validate_password%';,Проверка политики паролей
+SET GLOBAL validate_password.policy=LOW;,"Снижение требований к паролям (например, для dev-среды)"
+mysqldump -u user -p -h 192.168.1.100 --single-transaction --routines --triggers dbname > db.sql,Дамп базы с процедурами и триггерами через IP
+mysql -u user -p -h 192.168.1.100 dbname < db.sql,Восстановление дампа по IP-доступу
+ALTER USER 'user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'newpassword';,Безопасное обновление пароля пользователя
