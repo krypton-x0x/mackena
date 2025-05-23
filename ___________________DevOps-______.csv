@@ -1,0 +1,94 @@
+Команда,Описание
+ls,Просмотр содержимого директории
+cd /path,Переход в указанную директорию
+pwd,Вывод текущего пути
+mkdir dir,Создание новой директории
+rm file,Удаление файла
+rm -r dir,Рекурсивное удаление директории
+cp src dest,Копирование файла/директории
+mv src dest,Перемещение или переименование файла/директории
+touch file,Создание пустого файла
+nano/vim file,Редактирование файла
+cat file,Вывод содержимого файла
+less file,Постраничный просмотр файла
+tail -f log,Просмотр лога в реальном времени
+chmod +x file,Назначение исполняемого разрешения
+chown user:group file,Смена владельца файла
+df -h,Информация о дисковом пространстве
+du -sh *,Размер файлов и директорий
+top/htop,Мониторинг процессов
+ps aux,Список всех процессов
+kill PID,Завершение процесса по PID
+free -h,Информация об использовании RAM
+uptime,Время работы системы
+uname -a,Информация о системе
+whoami,Имя текущего пользователя
+id,"UID, GID и группы пользователя"
+ip a,Сетевые интерфейсы и IP-адреса
+ping host,Проверка доступности хоста
+curl url,Отправка HTTP-запроса
+wget url,Скачивание файлов
+netstat -tulnp,Список открытых портов
+ss -tulwn,Аналог netstat
+iptables -L,Правила фаервола
+docker ps,Запущенные контейнеры Docker
+docker images,Список Docker образов
+docker logs container,Логи контейнера
+systemctl status service,Статус сервиса
+systemctl start/stop/restart service,Управление сервисом
+journalctl -xe,Просмотр логов systemd
+crontab -e,Редактирование crontab текущего пользователя
+rsync -avz src dest,Синхронизация данных
+ssh user@host,Подключение по SSH
+scp src user@host:dest,Копирование по SSH
+git clone url,Клонирование репозитория
+git pull,Получение последних изменений
+git status,Статус рабочего дерева Git
+tar -czvf archive.tar.gz dir,Архивация каталога
+tar -xzvf archive.tar.gz,Распаковка архива
+find /path -name '*.log',Поиск файлов по имени
+locate filename,Быстрый поиск по базе
+stat file,Подробная информация о файле
+file file,Определение типа файла
+basename /path/to/file,Имя файла из пути
+dirname /path/to/file,Директория из пути
+zip archive.zip file,Создание ZIP архива
+unzip archive.zip,Распаковка ZIP архива
+gzip file,Сжатие файла
+gunzip file.gz,Распаковка .gz архива
+apt update && apt upgrade,Обновление системы (Debian/Ubuntu)
+yum update,Обновление системы (CentOS/RHEL)
+dnf update,Обновление системы (Fedora)
+apt install package,Установка пакета
+dpkg -i package.deb,Установка .deb пакета
+rpm -i package.rpm,Установка .rpm пакета
+adduser name,Создание нового пользователя
+usermod -aG group user,Добавление пользователя в группу
+passwd user,Смена пароля пользователя
+deluser name,Удаление пользователя
+dmesg,Лог ядра Linux
+last,Последние входы в систему
+tail -n 100 /var/log/syslog,Просмотр последних логов
+traceroute host,Маршрут до хоста
+dig domain,Информация о DNS
+nslookup domain,Информация о DNS (альтернатива dig)
+nc -zv host port,Проверка TCP-порта (netcat)
+docker exec -it container /bin/bash,Войти в контейнер Docker
+docker build -t name .,Собрать Docker образ
+docker-compose up -d,Запустить docker-compose в фоне
+docker-compose down,Остановить и удалить контейнеры
+kubectl get pods,Список pod'ов
+kubectl describe pod name,Подробная информация о pod-е
+kubectl logs pod,Логи pod-а
+kubectl apply -f config.yaml,Применить манифест
+vmstat 1,Состояние памяти и процессов
+iostat -xz 1,Статистика ввода/вывода
+lsof -i :port,"Процессы, слушающие порт"
+strace -p PID,Трассировка системных вызовов процесса
+sudo -i,Получение root-доступа
+sudo su - user,Переключение на пользователя
+setfacl -m u:user:rw file,Настройка ACL прав
+getfacl file,Проверка ACL прав
+date,Текущее время и дата
+timedatectl,Настройка времени и часового пояса
+hwclock,Аппаратное время системы
