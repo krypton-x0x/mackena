@@ -1,0 +1,61 @@
+Команда,Описание
+kubectl config get-contexts,Показать все доступные контексты
+kubectl config use-context CONTEXT,Переключиться на другой контекст
+kubectl get nodes,Показать все ноды кластера
+kubectl describe node NODE,Подробности по конкретной ноде
+kubectl get pods,Список всех pod'ов в текущем namespace
+kubectl get pods -A,Список pod'ов во всех namespace
+kubectl describe pod POD,Детали по конкретному pod'у
+kubectl logs POD,Просмотр логов контейнера
+kubectl logs POD -c CONTAINER,Логи конкретного контейнера в pod-е
+kubectl exec -it POD -- bash,Подключиться в контейнер bash-шеллом
+kubectl get services,Список сервисов
+kubectl describe svc SERVICE,Описание сервиса
+kubectl port-forward svc/SERVICE 8080:80,Проброс порта из сервиса в локальную машину
+kubectl get deployments,Список деплойментов
+kubectl describe deployment DEPLOYMENT,Описание деплоймента
+kubectl rollout status deployment/DEPLOYMENT,Статус развертывания
+kubectl rollout undo deployment/DEPLOYMENT,Откат деплоймента
+kubectl apply -f file.yaml,Применить манифест
+kubectl delete -f file.yaml,Удалить ресурсы по манифесту
+kubectl edit deployment DEPLOYMENT,Редактирование деплоймента на лету
+kubectl scale deployment DEPLOYMENT --replicas=3,Масштабирование деплоймента
+kubectl get namespaces,Список всех namespace
+kubectl create namespace NAME,Создание нового namespace
+kubectl delete namespace NAME,Удаление namespace
+kubectl get events,Показать последние события в кластере
+kubectl top pod,Показать использование ресурсов pod'ов
+kubectl top node,Показать использование ресурсов нод
+kubectl get rs,Список ReplicaSets
+kubectl describe rs NAME,Описание ReplicaSet
+kubectl get statefulsets,Список StatefulSets
+kubectl describe statefulset NAME,Описание StatefulSet
+kubectl get daemonsets,Список DaemonSets
+kubectl describe daemonset NAME,Описание DaemonSet
+kubectl get pvc,Список PersistentVolumeClaim
+kubectl describe pvc NAME,Описание PVC
+kubectl get pv,Список PersistentVolume
+kubectl describe pv NAME,Описание PV
+kubectl get configmaps,Список ConfigMaps
+kubectl describe configmap NAME,Описание ConfigMap
+kubectl get secrets,Список Secret
+kubectl describe secret NAME,Описание Secret
+kubectl create secret generic my-secret --from-literal=key=value,Создание секрета из строки
+kubectl get jobs,Список Job
+kubectl get cronjobs,Список CronJob
+kubectl describe job NAME,Описание Job
+kubectl delete job NAME,Удаление Job
+helm repo add stable https://charts.helm.sh/stable,Добавить репозиторий Helm
+helm install my-release stable/chart,Установить Helm-чарт
+helm upgrade my-release stable/chart,Обновить Helm-релиз
+helm uninstall my-release,Удалить Helm-релиз
+helm list,Список установленных Helm-релизов
+helm get values my-release,Получить значения Helm-релиза
+kubectl label pod POD key=value,Добавить или изменить метку pod'у
+kubectl annotate pod POD key=value,Добавить аннотацию pod'у
+kubectl cordon NODE,Вывод узла из эксплуатации
+kubectl drain NODE --ignore-daemonsets,Безопасный drain узла
+kubectl uncordon NODE,Вернуть узел в строй
+kubectl taint nodes NODE key=value:NoSchedule,Добавить taint на ноду
+kubectl describe ingress NAME,Описание Ingress
+kubectl get ingress,Список Ingress ресурсов
