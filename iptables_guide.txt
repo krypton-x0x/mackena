@@ -1,0 +1,146 @@
+📌 Что такое iptables?
+iptables — это утилита для настройки фильтрации пакетов в Linux через подсистему netfilter.
+
+🚨 Основные таблицы
+filter — основная таблица (по умолчанию).
+
+nat — для NAT, переадресации портов.
+
+mangle — для модификации пакетов (TTL, QoS и т.д.).
+
+raw — исключения из state tracking.
+
+security — для SELinux.
+
+🔗 Цепочки (chains)
+INPUT — входящий трафик.
+
+OUTPUT — исходящий.
+
+FORWARD — пересылаемый.
+
+PREROUTING — до маршрутизации (для NAT).
+
+POSTROUTING — после маршрутизации (для NAT).
+
+🧱 Базовые команды
+bash
+Copy
+Edit
+# Посмотреть правила
+iptables -L -n -v
+iptables -t nat -L -n -v
+iptables -t mangle -L -n -v
+
+# Добавить правило
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+
+# Вставить в начало
+iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
+
+# Удалить правило по номеру
+iptables -D INPUT 3
+
+# Очистить все правила
+iptables -F
+
+# Удалить все пользовательские цепочки
+iptables -X
+
+# Сбросить счётчики
+iptables -Z
+
+# Сохранить правила
+iptables-save > /etc/iptables/rules.v4
+
+# Загрузить правила
+iptables-restore < /etc/iptables/rules.v4
+🔥 Примеры настройки файрвола
+✅ Полностью закрыть всё
+bash
+Copy
+Edit
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+✅ Разрешить локалхост и вход по SSH
+bash
+Copy
+Edit
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 22 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+✅ Разрешить HTTP/HTTPS
+bash
+Copy
+Edit
+iptables -A INPUT -p tcp -m multiport --dports 80,443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 80 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 443 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+✅ Разрешить ICMP (ping)
+bash
+Copy
+Edit
+iptables -A INPUT -p icmp -j ACCEPT
+📦 NAT и проброс портов (на шлюзе)
+bash
+Copy
+Edit
+# Включить маршрутизацию
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+# Маскарадинг (NAT)
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+# Проброс 80 порта с внешнего интерфейса на внутренний сервер
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT --to-destination 192.168.0.100:80
+⛑ Поддержка соединений (stateful firewall)
+bash
+Copy
+Edit
+# Разрешить установленные и связанные соединения
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+⚠️ Сохранение конфигурации
+Debian/Ubuntu:
+
+bash
+Copy
+Edit
+apt install iptables-persistent
+iptables-save > /etc/iptables/rules.v4
+Red Hat/CentOS:
+
+bash
+Copy
+Edit
+service iptables save
+🧪 Диагностика
+bash
+Copy
+Edit
+iptables -S    # Список всех правил в виде команд
+iptables -L -n -v --line-numbers  # С номерами правил
+🛡 iptables + ipset (для большого списка IP)
+bash
+Copy
+Edit
+ipset create blacklist hash:ip
+ipset add blacklist 1.2.3.4
+iptables -I INPUT -m set --match-set blacklist src -j DROP
+💾 Пример скрипта
+bash
+Copy
+Edit
+#!/bin/bash
+
+iptables -F
+iptables -X
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
